@@ -91,6 +91,6 @@ dialog --title "Continue installation" --yesno \
 "Do you want to install all your apps and your dotfiles?" \
 10 60 \
 && curl https://raw.githubusercontent.com/laydros\
-/arch_installer/master/install_apps.sh > /tmp/install_apps.sh \
+/arch_installer/main/install_apps.sh > /tmp/install_apps.sh \
 && bash /tmp/install_apps.sh
 

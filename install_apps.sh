@@ -4,7 +4,7 @@ name=$(cat /tmp/user_name)
 
 apps_path="/tmp/apps.csv"
 curl https://raw.githubusercontent.com/laydros\
-/arch_installer/master/apps.csv > $apps_path
+/arch_installer/main/apps.csv > $apps_path
 
 dialog --title "Welcome!" \
     --msgbox "Welcome to the installation script for your apps and dotfiles!" \
