@@ -141,7 +141,7 @@ if [ "$uefi" = 1 ]; then
 fi
 
 # Install Arch Linux! Glory and fortune!
-pacstrap /mnt base base-devel linux linux-firmware neovim git zsh
+pacstrap /mnt base base-devel linux linux-firmware 
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Persist important values for the next script
