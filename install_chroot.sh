@@ -1,11 +1,9 @@
 #!/bin/bash
 
-uefi=$(cat /var_uefi); hd=$(cat /var_hd)
+uefi=$(cat /var_uefi); hd=$(cat /var_hd);
 
 cat /comp > /etc/hostname && rm /comp
 
-loadkeys "us"
-echo "KEYMAP=us" >> /etc/vconsole.conf
 
 pacman --noconfirm -S dialog
 
@@ -26,15 +24,23 @@ grub-mkconfig -o /boot/grub/grub.cfg
 hwclock --systohc
 
 # Set timezone
+# To list the timezones: `timedatectl list-timezones`
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
+# You can run `cat /etc/locale.gen` to see all the locales available
 echo "en_us.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_us.UTF-8 UTF-8" > /etc/locale.conf
 
+# Set the keymap layout if you don't use an EN_US keyboard. Replace "fr-latin1" by the keyboard layout you want.
+# loadkeys "us"
+# echo "KEYMAP=us" >> /etc/vconsole.conf
+
+# No argument: ask for a username.
+# One argument: use the username passed as argument.
 function config_user() {
     if [ -z "$1" ]; then
-        dialog --no-cancel --inputbox "Please enter your user name." \
+        dialog --no-cancel --inputbox "Please enter your username." \
             10 60 2> name
     else
         echo "$1" > name
@@ -48,7 +54,7 @@ function config_user() {
     while [ "$(cat pass1)" != "$(cat pass2)" ]
     do
         dialog --no-cancel --passwordbox \
-            "The passwords do not match. \n\nEnter your password again." \
+            "Passwords do not match.\n\nEnter password again." \
             10 60 2> pass1
         dialog --no-cancel --passwordbox \
             "Retype your password." \
@@ -59,10 +65,11 @@ function config_user() {
 
     # Create user if doesn't exist
     if [[ ! "$(id -u "$name" 2> /dev/null)" ]]; then
+        dialog --infobox "Adding user $name..." 4 50
         useradd -m -g wheel -s /bin/bash "$name"
     fi
 
-    # Add password to use
+    # Add password to user
     echo "$name:$pass1" | chpasswd
 }
 
@@ -71,9 +78,19 @@ dialog --title "Root password" \
     10 60
 config_user root
 
-dialog --title "Add user" \
+dialog --title "Add User" \
     --msgbox "Let's create another user." \
     10 60
 config_user
     
+# Save your username for the next script.
+echo "$name" > /tmp/user_name
+
+
+dialog --title "Continue installation" --yesno \
+"Do you want to install all your apps and your dotfiles?" \
+10 60 \
+&& curl https://raw.githubusercontent.com/laydros\
+/arch_installer/master/install_apps.sh > /tmp/install_apps.sh \
+&& bash /tmp/install_apps.sh
 
