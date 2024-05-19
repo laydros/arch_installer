@@ -78,19 +78,19 @@ dialog --defaultno --title "Current vars" --yesno \
     swap_size is ($size) \n\n\
     Do you want to continue?" 15 60 || exit
 
-# eraseDisk "$hderaser"
+eraseDisk "$hderaser"
 
 boot_partition_type=1
 [[ "$uefi" == 0 ]] && boot_partition_type=4
 
 
-dialog --defaultno --title "Current vars" --yesno \
-    "Variables are currently: \n\n\
-    uefi is ($uefi) \n\
-    hd is ($hd) \n\
-    swap_size is ($size) \n\
-    boot_partition_type is ($boot_partition_type) \n\
-    Do you want to continue?" 15 60 || exit
+dialog --infobox --title "Current vars" \
+"Variables are currently: \n\n\
+uefi is ($uefi) \n\
+hd is ($hd) \n\
+swap_size is ($size) \n\
+boot_partition_type is ($boot_partition_type) \n\
+Do you want to continue?" 15 60
 
 
 # Create the partitions

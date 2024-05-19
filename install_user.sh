@@ -9,7 +9,10 @@ mkdir -p "/home/$(whoami)/music"
 mkdir -p "/home/$(whoami)/media"
 mkdir -p "/home/$(whoami)/src"
 
+# Uncomment to set the keymap you want. Replace "fr" by your country code
+# localectl --no-convert set-x11-keymap fr
 
+# Function able to install any package from the AUR (needs the package names as arguments).
 aur_install() {
     curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" \
     && tar -xvf "$1.tar.gz" \
