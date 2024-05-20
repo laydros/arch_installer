@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Never run pacman -Sy on your real system!
+pacman -Sy dialog --noconfirm
+
 name=$(cat /tmp/user_name)
 
 apps_path="/tmp/apps.csv"
