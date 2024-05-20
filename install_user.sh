@@ -51,7 +51,7 @@ done
 
 DOTFILES="/home/$(whoami)/dotfiles"
 if [ ! -d "$DOTFILES" ]; then
-    git clone https://github.com/laydros/dotfiles.git \
+    git clone https://github.com/laydros/mouseless-dev-book.git \
     "$DOTFILES" >/dev/null
 fi
 
