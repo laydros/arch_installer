@@ -28,9 +28,9 @@ hwclock --systohc
 ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 
 # You can run `cat /etc/locale.gen` to see all the locales available
-echo "en_us.UTF-8 UTF-8" >> /etc/locale.gen
-locale-gen
-echo "LANG=en_us.UTF-8 UTF-8" > /etc/locale.conf
+#echo "en_us.UTF-8" >> /etc/locale.gen
+#locale-gen
+#echo "LANG=en_us.UTF-8" > /etc/locale.conf
 
 # Set the keymap layout if you don't use an EN_US keyboard. Replace "fr-latin1" by the keyboard layout you want.
 # loadkeys "us"
